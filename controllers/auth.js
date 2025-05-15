@@ -1,35 +1,50 @@
-import jwt from "jsonwebtoken";
-import User from "../models/User.model.js";
+import {
+  registerUserService,
+  loginUserService,
+  getUserService,
+} from "../services/authService.js";
 
-const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "7d" });
-};
-
+/**
+ * Controller to register a new user.
+ */
 export const register = async (req, res) => {
-  const { username, email, password } = req.body;
-  const user = await User.create({ username, email, password });
-  const token = generateToken(user._id);
-  res.status(201).json({
-    token: token,
-    user: {
-      username: user.username,
-      email: user.email,
-    },
-  });
+  try {
+    const { username, email, password } = req.body;
+    const data = await registerUserService({ username, email, password });
+    res.status(201).json(data);
+  } catch (err) {
+    res
+      .status(500)
+      .json({ message: "Registration failed", error: err.message });
+  }
 };
 
+/**
+ * Controller to authenticate and log in a user.
+ */
 export const login = async (req, res) => {
-  const { email, password } = req.body;
-  const user = await User.findOne({ email });
-  if (!user || !(await user.comparePassword(password))) {
-    return res.status(401).json({ message: "Invalid credentials" });
+  try {
+    const { email, password } = req.body;
+    const data = await loginUserService({ email, password });
+
+    if (!data) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
+
+    res.status(200).json(data);
+  } catch (err) {
+    res.status(500).json({ message: "Login failed", error: err.message });
   }
-  const token = generateToken(user._id);
-  res.json({
-    token: token,
-    user: {
-      username: user.username,
-      email: user.email,
-    },
-  });
+};
+
+/**
+ * Controller to get the currently authenticated user's info.
+ */
+export const getUser = async (req, res) => {
+  try {
+    const data = await getUserService(req.user.id);
+    res.status(200).json(data);
+  } catch (err) {
+    res.status(404).json({ message: "User not found", error: err.message });
+  }
 };
