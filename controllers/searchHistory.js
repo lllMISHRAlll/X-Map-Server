@@ -16,3 +16,16 @@ export const getSearchHistory = async (req, res) => {
   });
   res.json(history);
 };
+
+export const deleteSearch = async (req, res) => {
+  const { id } = req.params;
+
+  const search = await Search.findOne({ _id: id, user: req.user.id });
+
+  if (!search) {
+    return res.status(404).json({ message: "Search entry not found" });
+  }
+
+  await search.deleteOne();
+  res.status(200).json({ message: "Search entry deleted successfully" });
+};
