@@ -41,7 +41,7 @@ export const loginUserService = async ({ email, password }) => {
  * Get the authenticated user's details.
  */
 export const getUserService = async (userId) => {
-  const user = await User.findById(userId).select("username email");
+  const user = await User.findById(userId).select("-password");
 
   if (!user) {
     throw new Error("User not found");
@@ -52,6 +52,7 @@ export const getUserService = async (userId) => {
       id: user._id,
       username: user.username,
       email: user.email,
+      profilePic: user.profilePic,
     },
   };
 };
