@@ -12,13 +12,7 @@ const logger = createLogger({
     timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
     customFormat
   ),
-  transports: [
-    new transports.Console(),
-    new transports.File({
-      filename: "logs/combined.log",
-      silent: process.env.VERCEL === "1",
-    }),
-  ],
+  transports: [new transports.Console()],
 });
 
 export default logger;
