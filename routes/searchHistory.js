@@ -5,7 +5,7 @@ import { protect } from "../middlewares/verifyToken.js";
 const router = express.Router();
 
 router.use(protect);
-router.post("/", saveSearch);
-router.get("/", getSearchHistory);
+router.post("/save", saveSearch);
+router.get("/get", getSearchHistory);
 
 export default router;
