@@ -1,92 +1,144 @@
-🌐 X Maps – Backend
+# 🌐 X Maps – Backend Server
 
-This is the backend server for X Maps, a full-stack web application that allows users to search for addresses, view them on an interactive map, and store their search history. The server handles authentication, search data management, and secure API routing.
+Node.js Express server with MongoDB for X Maps application, handling authentication, search history, and secure API endpoints.
 
-🚀 Features
+![Database Schema]() _(Add schema screenshot here)_
 
-🔐 User registration and login (JWT-based authentication)
+## ✨ Key Features
 
-📍 Save and retrieve previously searched addresses with coordinates
+### 🔐 Authentication System
 
-🔒 Password encryption with bcrypt
+- JWT-based authentication
+- Google OAuth 2.0 integration
+- Password reset via email
+- Session management
+- Password encryption with bcrypt
 
-✅ Secure, protected API routes
+### 📍 Location Services
 
-🧱 Modular code structure
+- Store/retrieve search history with geocoordinates
+- MongoDB geospatial queries
+- Protected API endpoints
 
-🛠️ Tech Stack
+### 📦 Core Dependencies
 
-Node.js with Express.js
+```json
+{
+  "bcrypt": "^6.0.0",
+  "cors": "^2.8.5",
+  "express": "^5.1.0",
+  "jsonwebtoken": "^9.0.2",
+  "mongoose": "^8.14.3",
+  "nodemailer": "^7.0.3",
+  "passport": "^0.7.0",
+  "passport-google-oauth20": "^2.0.0",
+  "winston": "^3.17.0"
+}
+```
 
-MongoDB with Mongoose
+🚀 Tech Stack
+| **Category** | **Technologies Used** |
+| ------------ | --------------------------- |
+| Runtime | Node.js (ES Modules) |
+| Framework | Express.js 5.x |
+| Database | MongoDB + Mongoose ODM |
+| Auth | JWT, Passport, Google OAuth |
+| Security | bcrypt, CORS, Helmet |
+| Logging | Winston |
+| Email | Nodemailer |
 
-JWT for authentication
+📂 Project Structure
 
-bcrypt for hashing passwords
-
-dotenv for environment variables
-
-📁 Folder Structure
-
-bash
-Copy
-Edit
+```
 backend/
-├── config/ # MongoDB connection
-├── controllers/ # Route logic for auth & search
-├── middleware/ # Auth & error middleware
-├── models/ # Mongoose schemas
-├── routes/ # API endpoints
-├── .env # Environment variables
-├── app.js # Main Express config
-├── server.js # Server entry point
-└── package.json
-⚙️ Environment Variables
+├── config/
+│   ├── db.js          # MongoDB connection
+│   └── passport.js    # OAuth strategies
+├── controllers/
+│   ├── auth.js        # Auth logic
+│   ├── search.js      # Search history
+│   └── email.js       # Email services
+├── middleware/
+│   ├── auth.js        # JWT verification
+│   ├── error.js       # Error handling
+│   └── logger.js      # Winston config
+├── models/
+│   ├── User.js        # User schema
+│   └── Search.js      # Search history schema
+├── routes/
+│   ├── auth.js        # Auth routes
+│   ├── search.js      # Search routes
+│   └── oauth.js       # Google OAuth routes
+├── .env               # Environment config
+├── app.js             # Express setup
+└── server.js          # Server entry
 
-Create a .env file in the root and add:
+```
+
+⚙️ Configuration
+Create a .env file in the root directory:
+
 env
+
+```
 
 PORT=5000
 MONGO_URI=mongodb://localhost:27017/xmaps
-JWT_SECRET=your_jwt_secret_key
-If you're using MongoDB Atlas, replace MONGO_URI with your connection string.
+JWT_SECRET=your_jwt_secret_here
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_secret
+EMAIL_USER=your_nodemailer_email
+EMAIL_PASS=your_email_password
+SESSION_SECRET=your_session_secret
 
-🧪 API Endpoints
-🔑 Auth
-POST /api/auth/register – Register a new user
+```
 
-POST /api/auth/login – Log in and receive a JWT
+🧰 Installation
+bash
+
+```
+npm install
+npm install -g nodemon # Optional for development
+
+```
+
+🚀 Running the Server
+Development (with hot reload)
+bash
+
+```
+npm run dev
+Production
+```
+
+bash
+
+```
+npm start
+```
+
+🔌 API Endpoints
+
+| **Endpoint**           | **Method** | **Description**             |
+| ---------------------- | ---------- | --------------------------- |
+| `/api/auth/register`   | POST       | Email/password registration |
+| `/api/auth/login`      | POST       | Email/password login        |
+| `/api/auth/google`     | GET        | Initiate Google OAuth flow  |
+| `/api/auth/forgot-pwd` | POST       | Request password reset      |
+| `/api/auth/reset-pwd`  | POST       | Submit new password         |
 
 📍 Search History (Protected)
-POST /api/search – Save an address + coordinates
+| **Endpoint** | **Method** | **Protected** | **Description** |
+| ----------------- | ---------- | ------------- | ----------------------------- |
+| `/api/search` | POST | Yes | Save new search |
+| `/api/search` | GET | Yes | Get user's search history |
+| `/api/search/:id` | DELETE | Yes | Delete specific search record |
 
-GET /api/search – Retrieve all past searches for the user
+🛠️ Development Tools
+Nodemon – Hot reloading during development
 
-🧰 Installation & Running Locally
-Clone the repository:
+Winston – Structured logging
 
-bash
+Postman – API testing
 
-git clone https://github.com/lllMISHRAlll/X-Map-Server.git
-cd xmaps-server
-Install dependencies:
-
-bash
-
-npm install
-Create .env file and add your variables.
-
-Run the server in development:
-
-bash
-
-npm run dev
-Or in production:
-
-bash
-
-npm start
-✅ Recommended Tools
-MongoDB Compass for visual DB management
-
-Postman or Thunder Client for API testing
+MongoDB Compass – Database visualization
