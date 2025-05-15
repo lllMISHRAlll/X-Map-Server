@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const searchSchema = new mongoose.Schema(
+const locationSchema = new mongoose.Schema(
   {
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     address: { type: String, required: true },
@@ -12,4 +12,6 @@ const searchSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.model("SearchHistory", searchSchema);
+const Location = mongoose.model("Location", locationSchema);
+
+export { Location };

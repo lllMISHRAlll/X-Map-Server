@@ -2,7 +2,7 @@ import {
   registerUserService,
   loginUserService,
   getUserService,
-} from "../services/authService.js";
+} from "../services/index.js";
 
 /**
  * Controller to register a new user.

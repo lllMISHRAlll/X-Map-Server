@@ -1,6 +1,6 @@
 import express from "express";
-import authRoutes from "./routes/auth.js";
-import searchRoutes from "./routes/searchHistory.js";
+import authRoutes from "./routes/auth.route.js";
+import locationRoutes from "./routes/location.route.js";
 import { errorHandler } from "./middlewares/errors.js";
 import cors from "cors";
 import dotenv from "dotenv";
@@ -27,7 +27,7 @@ app.use(
 );
 
 app.use("/api/auth", authRoutes);
-app.use("/api/search", searchRoutes);
+app.use("/api/location", locationRoutes);
 
 app.use("/", (req, res) => {
   res.json({ message: "Server is running" });
