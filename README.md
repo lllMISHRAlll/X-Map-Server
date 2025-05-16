@@ -85,11 +85,13 @@ env
 PORT=5000
 MONGO_URI=mongodb://localhost:27017/xmaps
 JWT_SECRET=your_jwt_secret_here
-GOOGLE_CLIENT_ID=your_google_client_id
-GOOGLE_CLIENT_SECRET=your_google_secret
-EMAIL_USER=your_nodemailer_email
-EMAIL_PASS=your_email_password
+FRONTEND_URL=http://localhost:5173
+PASSPORT_GOOGLE_CLIENT_ID=your_google_client_id
+PASSPORT_GOOGLE_CLIENT_SECRET=your_google_secret
+SMTP_USER=your_nodemailer_email
+SMTP_PASS=your_email_password
 SESSION_SECRET=your_session_secret
+SERVER_URL = http://localhost:5000
 
 ```
 
@@ -119,20 +121,20 @@ npm start
 
 🔌 API Endpoints
 
-| **Endpoint**           | **Method** | **Description**             |
-| ---------------------- | ---------- | --------------------------- |
-| `/api/auth/register`   | POST       | Email/password registration |
-| `/api/auth/login`      | POST       | Email/password login        |
-| `/api/auth/google`     | GET        | Initiate Google OAuth flow  |
-| `/api/auth/forgot-pwd` | POST       | Request password reset      |
-| `/api/auth/reset-pwd`  | POST       | Submit new password         |
+| **Endpoint**                | **Method** | **Description**             |
+| --------------------------- | ---------- | --------------------------- |
+| `/api/auth/register`        | POST       | Email/password registration |
+| `/api/auth/login`           | POST       | Email/password login        |
+| `/api/auth/google`          | GET        | Initiate Google OAuth flow  |
+| `/api/auth/forgot-password` | POST       | Request password reset      |
+| `/api/auth/reset-password`  | POST       | Submit new password         |
 
-📍 Search History (Protected)
+📍 location History (Protected)
 | **Endpoint** | **Method** | **Protected** | **Description** |
 | ----------------- | ---------- | ------------- | ----------------------------- |
-| `/api/search` | POST | Yes | Save new search |
-| `/api/search` | GET | Yes | Get user's search history |
-| `/api/search/:id` | DELETE | Yes | Delete specific search record |
+| `/api/location/save` | POST | Yes | Save new location |
+| `/api/location/get` | GET | Yes | Get user's location history |
+| `/api/location/delete/:id` | DELETE | Yes | Delete specific location record |
 
 🛠️ Development Tools
 Nodemon – Hot reloading during development
