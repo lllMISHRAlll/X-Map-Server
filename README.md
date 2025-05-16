@@ -56,7 +56,7 @@ backend/
 │   └── passport.js    # OAuth strategies
 ├── controllers/
 │   ├── auth.js        # Auth logic
-│   ├── search.js      # Search history
+│   ├── location.js      # location history
 │   └── email.js       # Email services
 ├── middleware/
 │   ├── auth.js        # JWT verification
@@ -64,10 +64,10 @@ backend/
 │   └── logger.js      # Winston config
 ├── models/
 │   ├── User.js        # User schema
-│   └── Search.js      # Search history schema
+│   └── location.js    # location history schema
 ├── routes/
 │   ├── auth.js        # Auth routes
-│   ├── search.js      # Search routes
+│   ├── location.js    # location routes
 │   └── oauth.js       # Google OAuth routes
 ├── .env               # Environment config
 ├── app.js             # Express setup
